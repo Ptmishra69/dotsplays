@@ -1,0 +1,163 @@
+.nav {
+    padding: 6px 12px;
+    border-radius: 100px;
+}
+
+@media (min-width: 640px) {
+    .nav {
+        padding: 8px 28px;
+    }
+}
+
+.nav ul {
+    position: relative;
+    display: flex;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 640px) {
+    .nav ul {
+        gap: 48px;
+    }
+}
+
+/* ── NAV ITEMS ── */
+.nav li {
+    position: relative;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+    font-weight: 500;
+    z-index: 2;
+    transition: color 0.4s ease;
+    user-select: none;
+    white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+    .nav li {
+        padding: 6px 18px;
+        font-size: 11px;
+    }
+}
+
+.nav li.active {
+    color: #ffffff;
+}
+
+.nav li:not(.active):hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── SLIDING PILL ── */
+.pill {
+    position: absolute;
+    height: 26px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 100px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(138, 46, 255, 0.2)
+    );
+    box-shadow:
+        0 0 20px rgba(255, 255, 255, 0.3),
+        inset 0 0 10px rgba(255, 255, 255, 0.05);
+    transition:
+        left   0.5s cubic-bezier(.25, .8, .1, 1),
+        width  0.5s cubic-bezier(.25, .8, .1, 1);
+    pointer-events: none;
+}
+
+@media (min-width: 640px) {
+    .pill {
+        height: 28px;
+    }
+}
+
+/* Pill impact flash */
+.pill.flash {
+    animation: pillFlash 0.4s ease forwards;
+}
+
+@keyframes pillFlash {
+    0% {
+    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(138,46,255,0.6));
+    box-shadow: 0 0 50px rgba(255,255,255,0.7), inset 0 0 25px rgba(255,255,255,0.2);
+    }
+    100% {
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(138,46,255,0.2));
+    box-shadow: 0 0 20px rgba(255,255,255,0.3), inset 0 0 10px rgba(255,255,255,0.05);
+    }
+}
+
+/* ── SHOCKWAVE RINGS ── */
+.shockwave {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    animation: shockwaveOut 0.55s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+    z-index: 1;
+}
+
+.shockwave.delay {
+    animation-delay: 0.1s;
+    border-color: rgba(138, 46, 255, 0.7);
+}
+
+@keyframes shockwaveOut {
+    0%   { transform: translate(-50%, -50%) scale(0); opacity: 1;   width: 10px;  height: 10px;  }
+    60%  { opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0;   width: 220px; height: 120px; }
+}
+
+/* ── SPARK PARTICLES ── */
+.spark {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkFly var(--dur) cubic-bezier(0.2, 1, 0.4, 1) var(--delay) forwards;
+    z-index: 1;
+}
+
+@keyframes sparkFly {
+    0%   { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
+    70%  { opacity: 0.7; }
+    100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; }
+}
+
+/* ── LABEL POP ── */
+.nav li.pop {
+    animation: labelPop 0.3s ease forwards;
+}
+
+@keyframes labelPop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.18); color: #fff; text-shadow: 0 0 16px #ffffff; }
+    100% { transform: scale(1); }
+}
+
+/* ── SCENE FLASH OVERLAY ── */
+.flash-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.07);
+    pointer-events: none;
+    animation: overlayFlash 0.4s ease forwards;
+    z-index: 9999;
+}
+
+@keyframes overlayFlash {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+}
