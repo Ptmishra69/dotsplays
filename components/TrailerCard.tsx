@@ -1,10 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 export default function TrailerCard() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
@@ -50,7 +55,7 @@ export default function TrailerCard() {
       </div>
 
       {/* VIDEO MODAL — portalled to body to escape overflow-hidden */}
-      {isOpen && createPortal(
+      {isOpen && mounted && createPortal(
         <div
           className="fixed inset-0 bg-black/90 backdrop-blur-sm flex justify-center items-center z-[150]"
           onClick={() => setIsOpen(false)}

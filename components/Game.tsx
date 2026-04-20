@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 
 const GAME_DATA = [
   {
@@ -25,32 +25,41 @@ const GAME_DATA = [
   },
 ];
 
-function MobileCard({ title, desc, img, delay }: { title: string; desc: string; img: string; delay: string }) {
-  const [hasBeenTapped, setHasBeenTapped] = useState(false);
+interface MobileCardProps {
+  title: string;
+  desc: string;
+  img: string;
+  delay: string;
+  isActive: boolean;
+  onClick: () => void;
+}
 
+function MobileCard({ title, desc, img, delay, isActive, onClick }: MobileCardProps) {
   return (
-    <div 
-      onClick={() => setHasBeenTapped(true)}
-      className={`relative w-full rounded-xl p-2.5 sm:p-4 bg-white/[0.03] backdrop-blur-[8px] border border-white/5 shadow-xl flex flex-col gap-2 group animate-in fade-in slide-in-from-bottom-4 duration-1000 cursor-pointer ${delay}`}
+    <div
+      onClick={onClick}
+      className={`relative w-full rounded-xl p-2.5 sm:p-4 backdrop-blur-[8px] border transition-all duration-500 flex flex-col gap-2 group animate-in fade-in slide-in-from-bottom-4 ${delay}
+                  ${isActive 
+                    ? "bg-white/[0.12] border-white/30 shadow-[0_0_25px_rgba(255,255,255,0.1)] scale-[1.03] z-[10]" 
+                    : "bg-white/[0.03] border-white/5 shadow-xl grayscale"}`}
     >
-      <div className="relative h-[80px] sm:h-[130px] rounded-lg overflow-hidden border border-white/5">
-        <img 
-          src={img} 
-          alt={title} 
-          className={`w-full h-full object-cover transition-all duration-700 ${
-            hasBeenTapped 
-              ? "grayscale-0 opacity-100 scale-105" 
-              : "grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-active:grayscale-0 group-active:opacity-100 group-hover:scale-110"
-          }`} 
+      <div className={`relative h-[80px] sm:h-[130px] rounded-lg overflow-hidden border transition-all duration-500
+                      ${isActive ? "border-white/20" : "border-white/5"}`}>
+        <img
+          src={img}
+          alt={title}
+          className={`w-full h-full object-cover transition-all duration-700
+                     ${isActive ? "grayscale-0 opacity-100 scale-105" : "grayscale opacity-80"}`}
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
       </div>
       <div>
-        <h3 className={`font-tech tracking-wider text-[9px] sm:text-[11px] font-bold uppercase mb-0.5 line-clamp-1 transition-colors duration-500 ${hasBeenTapped ? "text-white" : "text-white/70"}`}>
+        <h3 className="font-tech tracking-wider text-[9px] sm:text-[11px] font-bold uppercase mb-0.5 line-clamp-1 transition-colors text-white">
           {title}
         </h3>
-        <p className={`font-sans text-[8px] sm:text-[10px] leading-tight line-clamp-2 transition-colors duration-500 ${hasBeenTapped ? "text-white/60" : "text-white/30"}`}>
+        <p className={`font-sans text-[8px] sm:text-[10px] leading-tight line-clamp-2 transition-colors
+                       ${isActive ? "text-white/60" : "text-white/30"}`}>
           {desc}
         </p>
       </div>
@@ -59,22 +68,24 @@ function MobileCard({ title, desc, img, delay }: { title: string; desc: string; 
 }
 
 export default function Game() {
+  const [activeIndices, setActiveIndices] = useState<number[]>([]);
+
+  const handleMobileClick = (index: number) => {
+    setActiveIndices((prev) => 
+      prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+    );
+  };
+
   return (
-    <section 
-      id="game" 
+    <section
       className="relative w-full min-h-[100dvh] sm:h-screen bg-black overflow-hidden flex flex-col items-center justify-center py-12 sm:py-0"
     >
       {/* -- Sliding/Panning Background Layer (Moon + Heading) -- */}
       <div className="absolute inset-[-10%] z-0 pointer-events-none animate-[slide-pan_40s_ease-in-out_infinite_alternate]">
-        {/* The Moon */}
-        <div 
-          className="absolute inset-0 bg-[url('/moon.png')] bg-cover sm:bg-contain sm:bg-no-repeat bg-center"
-        />
-
-        {/* Desktop Heading (Centered on the moon and synchronized) */}
+        <div className="absolute inset-0 bg-[url('/moon.png')] bg-cover sm:bg-contain sm:bg-no-repeat bg-center" />
         <div className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center">
           <h2 className="text-white font-heading text-4xl lg:text-5xl xl:text-6xl uppercase tracking-[0.3em] leading-[1] drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]">
-            Into the<br/>
+            Into the<br />
             <span className="text-6xl lg:text-7xl xl:text-8xl tracking-[0.4em] text-white/90">Game</span>
           </h2>
           <div className="mt-8 w-20 h-[1px] bg-white/20 mx-auto" />
@@ -85,22 +96,42 @@ export default function Game() {
       <div className="relative z-[20] flex flex-col items-center gap-16 sm:hidden w-full max-w-[400px] px-4">
         {/* Top row */}
         <div className="grid grid-cols-2 gap-2.5 w-full">
-          <MobileCard {...GAME_DATA[0]} delay="delay-0" />
-          <MobileCard {...GAME_DATA[1]} delay="delay-150" />
+          <MobileCard 
+            {...GAME_DATA[0]} 
+            delay="delay-0" 
+            isActive={activeIndices.includes(0)} 
+            onClick={() => handleMobileClick(0)} 
+          />
+          <MobileCard 
+            {...GAME_DATA[1]} 
+            delay="delay-150" 
+            isActive={activeIndices.includes(1)} 
+            onClick={() => handleMobileClick(1)} 
+          />
         </div>
 
         {/* Center Heading */}
         <div className="text-center py-2">
           <h2 className="text-white font-heading text-[clamp(28px,9vw,60px)] uppercase tracking-[0.25em] leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
-            INTO THE<br/>GAME
+            INTO THE<br />GAME
           </h2>
           <div className="mt-3 w-10 h-px bg-white/30 mx-auto" />
         </div>
 
         {/* Bottom row */}
         <div className="grid grid-cols-2 gap-2.5 w-full">
-          <MobileCard {...GAME_DATA[2]} delay="delay-300" />
-          <MobileCard {...GAME_DATA[3]} delay="delay-450" />
+          <MobileCard 
+            {...GAME_DATA[2]} 
+            delay="delay-300" 
+            isActive={activeIndices.includes(2)} 
+            onClick={() => handleMobileClick(2)} 
+          />
+          <MobileCard 
+            {...GAME_DATA[3]} 
+            delay="delay-450" 
+            isActive={activeIndices.includes(3)} 
+            onClick={() => handleMobileClick(3)} 
+          />
         </div>
       </div>
 
@@ -157,4 +188,3 @@ export default function Game() {
     </section>
   );
 }
-

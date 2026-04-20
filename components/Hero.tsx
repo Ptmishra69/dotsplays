@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import TrailerCard from "./TrailerCard";
 
@@ -8,6 +8,11 @@ const TRAILER_URL = "https://res.cloudinary.com/dbqv4cbdy/video/upload/v17765915
 
 export default function Hero() {
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section className="relative w-full min-h-[100dvh] sm:h-screen flex flex-col sm:block bg-black text-white overflow-hidden pb-12 sm:pb-0">
@@ -36,21 +41,19 @@ export default function Hero() {
                   so it overlaps the gradient for a cinematic feel.
           Desktop: absolutely positioned, specialized intro flow. */}
       
-      {/* MOBILE HEADING (Restored to original) */}
-      <h1 className="sm:hidden relative z-10 w-full text-center px-[6vw] mt-2 font-sans font-light uppercase tracking-[0.12em] leading-[1.1] text-[clamp(22px,8vw,36px)]">
+      {/* MOBILE HEADING (Preserved) */}
+      <h1 className="sm:hidden relative z-10 w-full text-center px-[6vw] mt-2 transform -translate-y-[20px] font-sans font-light uppercase tracking-[0.12em] leading-[1.1] text-[clamp(14px,8vw,28px)]">
         <span className="text-transparent bg-clip-text bg-linear-to-r from-red-600 via-orange-500 to-amber-400">Apocalypse is coming</span>
         <span className="text-red-600 drop-shadow-[0_0_15px_rgba(220,38,38,1)] font-heading">!!</span>
         <br />
-        <span className="font-heading font-normal text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] filter drop-shadow-[0_0_15px_rgba(0,0,0,1)] drop-shadow-[0_0_30px_rgba(0,0,0,1)] tracking-widest block mt-4">Singularity Protocol</span>
+        <span className="font-heading font-normal text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] filter drop-shadow-[0_0_15px_rgba(0,0,0,1)] drop-shadow-[0_0_30px_rgba(0,0,0,1)] tracking-normal block mt-4">Singularity Protocol</span>
       </h1>
- 
+
       {/* DESKTOP HEADING (Asymmetrical Layout - Reset to left) */}
-      <div className="hidden sm:flex absolute z-10 bottom-[38%] left-[11%] w-full flex-col items-start text-left uppercase transform -translate-y-[80px]">
-
-
+      <div className="hidden sm:flex absolute z-10 bottom-[38%] left-[11%] w-full flex-col items-start text-left uppercase transform -translate-y-[136px]">
 
         {/* Row 1: Intro Tagline */}
-        <div className="font-sans font-semibold tracking-[0.12em] leading-[1.1] text-[clamp(24px,4vw,60px)] flex items-center gap-[0.7em] whitespace-nowrap mb-4">
+        <div className="font-sans font-semibold tracking-[0.12em] leading-[1.1] text-[clamp(24px,4vw,60px)] flex items-center gap-[0.7em] whitespace-nowrap mb-4 transform translate-x-[170px]">
           <div className="text-transparent bg-clip-text bg-linear-to-r from-red-700 via-red-600 to-red-500 flex gap-[0.6em]">
             <span>Apocalypse</span>
             <span>is</span>
@@ -60,7 +63,7 @@ export default function Hero() {
         </div>
 
         {/* Row 2: Main Title (Single line, left-aligned above card) */}
-        <h1 className="font-heading font-normal text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] filter drop-shadow-[0_0_15px_rgba(0,0,0,1)] drop-shadow-[0_0_35px_rgba(0,0,0,1)] tracking-[0.05em] text-[clamp(20px,6vw,78px)]">
+        <h1 className="font-heading font-normal text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] filter drop-shadow-[0_0_15px_rgba(0,0,0,1)] drop-shadow-[0_0_35px_rgba(0,0,0,1)] tracking-[0.05em] text-[clamp(24px,6vw,82px)]">
           Singularity Protocol
         </h1>
       </div>
@@ -94,7 +97,7 @@ export default function Hero() {
       </div>
 
       {/* -- Trailer video modal (portalled) -- */}
-      {isTrailerOpen && createPortal(
+      {isTrailerOpen && mounted && createPortal(
         <div
           className="fixed inset-0 bg-black/90 backdrop-blur-sm flex justify-center items-center z-[150]"
           onClick={() => setIsTrailerOpen(false)}

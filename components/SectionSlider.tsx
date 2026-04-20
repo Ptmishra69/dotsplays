@@ -214,7 +214,14 @@ export default function SectionSlider({ children }: SectionSliderProps) {
 
       {/* -- MOBILE: Normal vertical flow, unchanged -- */}
       <div className="sm:hidden">
-        {children}
+        {children.map((child, i) => {
+          const idMap = ["home", "game", "about", "careers", "contact"];
+          return (
+            <div key={i} id={idMap[i]}>
+              {child}
+            </div>
+          );
+        })}
         <MobileFooter />
       </div>
     </SectionContext.Provider>

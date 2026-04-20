@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 // Lazy-load the heavy WebGL canvas — no SSR
@@ -33,28 +34,36 @@ const openings = [
 ];
 
 export default function Careers() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <section
-      id="careers"
       className="relative w-full min-h-[100dvh] sm:h-full bg-black overflow-hidden flex flex-col items-center justify-center py-12 sm:py-20"
     >
       {/* -- LineWaves WebGL background -- */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-25 sm:opacity-40">
-        <LineWaves
-          speed={0.15}
-          innerLineCount={3}
-          outerLineCount={3}
-          warpIntensity={0.6}
-          rotation={-30}
-          edgeFadeWidth={0.15}
-          colorCycleSpeed={0.5}
-          brightness={0.2}
-          color1="#ffffff"
-          color2="#aaaaaa"
-          color3="#ffffff"
-          enableMouseInteraction={false}
-          mouseInfluence={0}
-        />
+        {mounted && (
+          <LineWaves
+            speed={0.15}
+            innerLineCount={3}
+            outerLineCount={3}
+            warpIntensity={0.6}
+            rotation={-30}
+            edgeFadeWidth={0.15}
+            colorCycleSpeed={0.5}
+            brightness={0.2}
+            color1="#ffffff"
+            color2="#aaaaaa"
+            color3="#ffffff"
+            enableMouseInteraction={false}
+            mouseInfluence={0}
+          />
+        )}
       </div>
 
       {/* -- Top / bottom vignette -- */}
@@ -79,29 +88,38 @@ export default function Careers() {
 
         {/* Job cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-5 w-full px-1 sm:px-0">
-          {openings.map((job) => (
+          {openings.map((job, i) => (
             <div
               key={job.title}
-              className="group relative rounded-xl sm:rounded-2xl p-3 sm:p-7 flex flex-col gap-2 sm:gap-3
-                         bg-white/[0.04] backdrop-blur-[16px]
-                         border border-white/[0.08]
-                         shadow-[0_8px_32px_rgba(0,0,0,0.6)]
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.innerWidth < 640) {
+                  setActiveIndex(activeIndex === i ? null : i);
+                }
+              }}
+              className={`group relative rounded-xl sm:rounded-2xl p-3 sm:p-7 flex flex-col gap-2 sm:gap-3
+                         backdrop-blur-[16px] border transition-all duration-400 cursor-default
+                         ${activeIndex === i 
+                           ? "bg-white/[0.12] border-white/40 shadow-[0_0_30px_rgba(255,255,255,0.1)] scale-[1.02] z-[11]" 
+                           : "bg-white/[0.03] border-white/[0.08] shadow-[0_8px_32_rgba(0,0,0,0.6)]"}
                          hover:bg-white/[0.08] hover:border-white/[0.18]
                          hover:shadow-[0_12px_48px_rgba(255,255,255,0.07),0_8px_32px_rgba(0,0,0,0.8)]
-                         hover:-translate-y-1 transition-all duration-400 cursor-default"
+                         sm:hover:-translate-y-1`}
             >
               {/* Role title */}
-              <h3 className="text-white font-tech tracking-widest text-sm sm:text-base font-bold uppercase drop-shadow-md">
+              <h3 className={`font-tech tracking-widest text-sm sm:text-base font-bold uppercase drop-shadow-md transition-colors
+                             ${activeIndex === i ? "text-white" : "text-white"}`}>
                 {job.title}
               </h3>
 
               {/* Type badge */}
-              <span className="inline-block w-fit text-white/50 font-tech tracking-[0.15em] text-[9px] sm:text-[10px] uppercase px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03]">
+              <span className={`inline-block w-fit font-tech tracking-[0.15em] text-[9px] sm:text-[10px] uppercase px-2.5 py-1 rounded-full border transition-colors
+                               ${activeIndex === i ? "text-white/80 border-white/30 bg-white/10" : "text-white/50 border-white/10 bg-white/[0.03]"}`}>
                 {job.type}
               </span>
 
               {/* Description */}
-              <p className="text-white/50 font-sans text-[9px] sm:text-sm leading-[1.6] sm:leading-relaxed">
+              <p className={`font-sans text-[9px] sm:text-sm leading-[1.6] sm:leading-relaxed transition-colors
+                             ${activeIndex === i ? "text-white/80" : "text-white/50"}`}>
                 {job.description}
               </p>
 
@@ -116,7 +134,8 @@ export default function Careers() {
               </div>
 
               {/* Card top glow line */}
-              <div className="absolute top-0 left-4 right-4 sm:left-6 sm:right-6 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-white/40 transition-colors duration-400" />
+              <div className={`absolute top-0 left-4 right-4 sm:left-6 sm:right-6 h-px bg-gradient-to-r from-transparent to-transparent transition-colors duration-400
+                              ${activeIndex === i ? "via-white/60" : "via-white/20 group-hover:via-white/40"}`} />
             </div>
           ))}
         </div>

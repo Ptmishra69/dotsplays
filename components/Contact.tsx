@@ -13,7 +13,6 @@ export default function Contact() {
   if (state.succeeded) {
     return (
       <section
-        id="contact"
         className="relative w-full h-screen bg-black overflow-hidden flex flex-col items-center justify-center py-16 sm:py-20"
       >
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
@@ -42,7 +41,6 @@ export default function Contact() {
 
   return (
     <section
-      id="contact"
       className="relative w-full h-full bg-black overflow-hidden flex flex-col items-center justify-center py-16 sm:py-20"
     >
       {/* -- Beams WebGL background -- */}
