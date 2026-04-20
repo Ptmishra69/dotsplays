@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const GAME_DATA = [
   {
     title: "3D Game Visuals",
@@ -22,24 +26,31 @@ const GAME_DATA = [
 ];
 
 function MobileCard({ title, desc, img, delay }: { title: string; desc: string; img: string; delay: string }) {
+  const [hasBeenTapped, setHasBeenTapped] = useState(false);
+
   return (
     <div 
-      className={`relative w-full rounded-xl p-2.5 sm:p-4 bg-white/[0.03] backdrop-blur-[8px] border border-white/5 shadow-xl flex flex-col gap-2 group animate-in fade-in slide-in-from-bottom-4 duration-1000 ${delay}`}
+      onClick={() => setHasBeenTapped(true)}
+      className={`relative w-full rounded-xl p-2.5 sm:p-4 bg-white/[0.03] backdrop-blur-[8px] border border-white/5 shadow-xl flex flex-col gap-2 group animate-in fade-in slide-in-from-bottom-4 duration-1000 cursor-pointer ${delay}`}
     >
       <div className="relative h-[80px] sm:h-[130px] rounded-lg overflow-hidden border border-white/5">
         <img 
           src={img} 
           alt={title} 
-          className="w-full h-full object-cover grayscale-0 opacity-100 group-hover:scale-105 transition-all duration-700" 
+          className={`w-full h-full object-cover transition-all duration-700 ${
+            hasBeenTapped 
+              ? "grayscale-0 opacity-100 scale-105" 
+              : "grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-active:grayscale-0 group-active:opacity-100 group-hover:scale-110"
+          }`} 
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
       </div>
       <div>
-        <h3 className="text-white font-tech tracking-wider text-[9px] sm:text-[11px] font-bold uppercase mb-0.5 line-clamp-1">
+        <h3 className={`font-tech tracking-wider text-[9px] sm:text-[11px] font-bold uppercase mb-0.5 line-clamp-1 transition-colors duration-500 ${hasBeenTapped ? "text-white" : "text-white/70"}`}>
           {title}
         </h3>
-        <p className="text-white/30 font-sans text-[8px] sm:text-[10px] leading-tight line-clamp-2">
+        <p className={`font-sans text-[8px] sm:text-[10px] leading-tight line-clamp-2 transition-colors duration-500 ${hasBeenTapped ? "text-white/60" : "text-white/30"}`}>
           {desc}
         </p>
       </div>
@@ -53,7 +64,7 @@ export default function Game() {
       id="game" 
       className="relative w-full min-h-[100dvh] sm:h-screen bg-black overflow-hidden flex flex-col items-center justify-center py-12 sm:py-0"
     >
-      {/* ── Sliding/Panning Background Layer (Moon + Heading) ── */}
+      {/* -- Sliding/Panning Background Layer (Moon + Heading) -- */}
       <div className="absolute inset-[-10%] z-0 pointer-events-none animate-[slide-pan_40s_ease-in-out_infinite_alternate]">
         {/* The Moon */}
         <div 
@@ -70,7 +81,7 @@ export default function Game() {
         </div>
       </div>
 
-      {/* ── MOBILE VIEW: 2x2 grid split by Center Text ── */}
+      {/* -- MOBILE VIEW: 2x2 grid split by Center Text -- */}
       <div className="relative z-[20] flex flex-col items-center gap-16 sm:hidden w-full max-w-[400px] px-4">
         {/* Top row */}
         <div className="grid grid-cols-2 gap-2.5 w-full">
@@ -93,7 +104,7 @@ export default function Game() {
         </div>
       </div>
 
-      {/* ── Desktop-Only Info Cards (Positioned at 4 extreme corners) ── */}
+      {/* -- Desktop-Only Info Cards (Positioned at 4 extreme corners) -- */}
       <div className="hidden sm:block absolute inset-0 z-[15] pointer-events-none w-full h-full">
         {/* Top Left - Standard Rectangle (Restored) */}
         <div className="absolute top-[16vh] left-[3vw] lg:left-[5vw] pointer-events-auto origin-top-left hover:z-20 w-[280px] lg:w-[340px]">

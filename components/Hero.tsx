@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section className="relative w-full min-h-[100dvh] sm:h-screen flex flex-col sm:block bg-black text-white overflow-hidden pb-12 sm:pb-0">
 
-      {/* ── Video wrapper ──
+      {/* -- Video wrapper --
           Mobile: in-flow block at top, fixed 55vh tall.
           Desktop: absolute fullscreen overlay (unchanged). */}
       <div className="relative w-full h-[55vh] shrink-0 sm:absolute sm:inset-0 sm:h-full z-0">
@@ -31,23 +31,26 @@ export default function Hero() {
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent pointer-events-none sm:hidden" />
       </div>
 
-      {/* ── Heading ──
+      {/* -- Heading --
           Mobile: centered below the video, pulled up slightly with negative margin
                   so it overlaps the gradient for a cinematic feel.
           Desktop: absolutely positioned, specialized intro flow. */}
       
-      {/* MOBILE HEADING (Preserved) */}
+      {/* MOBILE HEADING (Restored to original) */}
       <h1 className="sm:hidden relative z-10 w-full text-center px-[6vw] mt-2 font-sans font-light uppercase tracking-[0.12em] leading-[1.1] text-[clamp(22px,8vw,36px)]">
         <span className="text-transparent bg-clip-text bg-linear-to-r from-red-600 via-orange-500 to-amber-400">Apocalypse is coming</span>
         <span className="text-red-600 drop-shadow-[0_0_15px_rgba(220,38,38,1)] font-heading">!!</span>
         <br />
         <span className="font-heading font-normal text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] filter drop-shadow-[0_0_15px_rgba(0,0,0,1)] drop-shadow-[0_0_30px_rgba(0,0,0,1)] tracking-widest block mt-4">Singularity Protocol</span>
       </h1>
+ 
+      {/* DESKTOP HEADING (Asymmetrical Layout - Reset to left) */}
+      <div className="hidden sm:flex absolute z-10 bottom-[38%] left-[11%] w-full flex-col items-start text-left uppercase transform -translate-y-[80px]">
 
-      {/* DESKTOP HEADING (New Flow) */}
-      <div className="hidden sm:flex absolute z-10 top-[20%] left-1/2 -translate-x-1/2 w-full flex-col items-center text-center uppercase sm:translate-y-[35px]">
-        {/* Row 1: Intro Tagline (Shifted up 12px and 120px right) */}
-        <div className="sm:-translate-y-[12px] sm:translate-x-[120px] font-sans font-semibold tracking-[0.12em] leading-[1.1] text-[clamp(24px,5vw,72px)] flex items-center gap-[0.7em] whitespace-nowrap">
+
+
+        {/* Row 1: Intro Tagline */}
+        <div className="font-sans font-semibold tracking-[0.12em] leading-[1.1] text-[clamp(24px,4vw,60px)] flex items-center gap-[0.7em] whitespace-nowrap mb-4">
           <div className="text-transparent bg-clip-text bg-linear-to-r from-red-700 via-red-600 to-red-500 flex gap-[0.6em]">
             <span>Apocalypse</span>
             <span>is</span>
@@ -56,30 +59,18 @@ export default function Hero() {
           <span className="text-red-600 drop-shadow-[0_0_15px_rgba(220,38,38,1)] font-heading">!!</span>
         </div>
 
-        {/* Row 2: Logo & Presents (Scaled insanely and shifted left) */}
-        <div className="flex items-center gap-6 mt-4 mb-6 opacity-90 sm:-translate-x-[350px]">
-          <img 
-            src="https://res.cloudinary.com/dbqv4cbdy/image/upload/v1776612688/erasebg-transformed_azc2tc.png" 
-            alt="DotPlayz Logo" 
-            className="h-[96px] w-auto filter brightness-125 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" 
-          />
-          <span className="font-tech text-2xl tracking-[0.4em] text-white/80 lowercase italic">presents</span>
-        </div>
-
-        {/* Row 3: Main Title (Shifted 135px up and 285px right) */}
-        <h1 className="font-heading font-normal text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] filter drop-shadow-[0_0_15px_rgba(0,0,0,1)] drop-shadow-[0_0_35px_rgba(0,0,0,1)] tracking-[0.3em] text-[clamp(32px,6vw,84px)] sm:-translate-y-[135px] sm:translate-x-[285px]">
+        {/* Row 2: Main Title (Single line, left-aligned above card) */}
+        <h1 className="font-heading font-normal text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] filter drop-shadow-[0_0_15px_rgba(0,0,0,1)] drop-shadow-[0_0_35px_rgba(0,0,0,1)] tracking-[0.05em] text-[clamp(20px,6vw,78px)]">
           Singularity Protocol
         </h1>
       </div>
 
-      {/* ── Trailer Card ──
-          Desktop: absolutely positioned to the left (aligned with heading) and aligned to the bottom.
-          Mobile: hidden (or custom flow) depending on requirement, currently hidden to preserve previous flow. */}
+      {/* -- Trailer Card (Back to original place) -- */}
       <div className="hidden sm:block absolute z-20 bottom-[6%] left-[11%]">
         <TrailerCard />
       </div>
 
-      {/* ── Footer tagline & CTA ──
+      {/* -- Footer tagline & CTA --
           Mobile: centered below heading, pushed down with auto margin.
           Desktop: absolutely positioned bottom-center (unchanged). */}
       <div className="relative z-10 w-full flex flex-col items-center px-[6vw] mt-[5vh] mb-auto sm:mb-0 sm:mt-0 sm:px-0 opacity-80 sm:opacity-100 sm:absolute sm:bottom-[6%] sm:left-1/2 sm:-translate-x-1/2 font-tech uppercase drop-shadow-md gap-6 sm:gap-8">
@@ -102,7 +93,7 @@ export default function Hero() {
         </button>
       </div>
 
-      {/* ── Trailer video modal (portalled) ── */}
+      {/* -- Trailer video modal (portalled) -- */}
       {isTrailerOpen && createPortal(
         <div
           className="fixed inset-0 bg-black/90 backdrop-blur-sm flex justify-center items-center z-[150]"

@@ -45,7 +45,7 @@ export default function Contact() {
       id="contact"
       className="relative w-full h-full bg-black overflow-hidden flex flex-col items-center justify-center py-16 sm:py-20"
     >
-      {/* ── Beams WebGL background ── */}
+      {/* -- Beams WebGL background -- */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <Beams
           beamWidth={2}
@@ -59,11 +59,11 @@ export default function Contact() {
         />
       </div>
 
-      {/* ── Top / bottom vignette ── */}
+      {/* -- Top / bottom vignette -- */}
       <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-black via-transparent to-black" />
 
-      {/* ── Content ── */}
-      {/* ── Content ── */}
+      {/* -- Content -- */}
+      {/* -- Content -- */}
       <div className="relative z-[10] w-full max-w-3xl px-6 sm:px-12 flex flex-col items-center gap-4 sm:gap-6 pt-32 sm:pt-44 pb-12">
 
         {/* Mobile Heading Only */}
@@ -77,7 +77,7 @@ export default function Contact() {
           <div className="mt-4 w-20 h-px bg-white/20 mx-auto" />
         </div>
 
-        {/* ── Contact Form (Heading embedded on Desktop) ── */}
+        {/* -- Contact Form (Heading embedded on Desktop) -- */}
         <form
           onSubmit={handleSubmit}
           className="w-full flex flex-col gap-4 sm:gap-6 p-5 sm:p-8 rounded-2xl

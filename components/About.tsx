@@ -34,7 +34,7 @@ export default function About() {
       id="about"
       className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col items-center justify-center py-16 sm:py-32"
     >
-      {/* ── Beams WebGL background ── */}
+      {/* -- Beams WebGL background -- */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40 sm:opacity-60">
         <Beams
           beamWidth={2}
@@ -48,10 +48,10 @@ export default function About() {
         />
       </div>
 
-      {/* ── Subtle top/bottom vignette ── */}
+      {/* -- Subtle top/bottom vignette -- */}
       <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-black via-transparent to-black" />
 
-      {/* ── Content ── */}
+      {/* -- Content -- */}
       <div className="relative z-[10] w-full max-w-6xl px-6 sm:px-12 flex flex-col items-center gap-10 sm:gap-16">
 
         {/* Heading */}

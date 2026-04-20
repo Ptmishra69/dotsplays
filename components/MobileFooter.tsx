@@ -20,11 +20,11 @@ export default function MobileFooter() {
 
   return (
     <footer className="w-full bg-black border-t border-white/10 px-6 pt-16 pb-12 flex flex-col gap-12 relative overflow-hidden">
-      {/* ── Background Accent ── */}
+      {/* -- Background Accent -- */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* ── Top Section: Branding & Trailer Action ── */}
+      {/* -- Top Section: Branding & Trailer Action -- strength */}
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <h3 className="text-white font-heading text-xl tracking-[0.3em] uppercase opacity-90 drop-shadow-lg">
@@ -44,7 +44,7 @@ export default function MobileFooter() {
         </button>
       </div>
 
-      {/* ── Middle Section: Two-Column Info ── */}
+      {/* -- Middle Section: Two-Column Info -- strength */}
       <div className="grid grid-cols-2 gap-8">
         {/* Navigation Column */}
         <div className="flex flex-col gap-4">
@@ -87,7 +87,7 @@ export default function MobileFooter() {
         </div>
       </div>
 
-      {/* ── Bottom Section: Legal & Credits ── */}
+      {/* -- Bottom Section: Legal & Credits -- strength */}
       <div className="flex flex-col gap-6 pt-6 border-t border-white/5">
         <div className="flex flex-col gap-2 opacity-30">
           <p className="text-white font-tech text-[9px] tracking-[0.1em] uppercase">

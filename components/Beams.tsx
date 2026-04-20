@@ -7,7 +7,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
 import { degToRad } from "three/src/math/MathUtils.js";
 
-// ─── Shader helpers ──────────────────────────────────────────────────────────
+// --- Shader helpers ----------------------------------------------------------
 
 function extendMaterial(
   BaseMaterial: typeof THREE.MeshStandardMaterial,
@@ -58,7 +58,7 @@ function extendMaterial(
   });
 }
 
-// ─── GLSL noise ──────────────────────────────────────────────────────────────
+// --- GLSL noise --------------------------------------------------------------
 
 const noise = `
 float random(in vec2 st){return fract(sin(dot(st.xy,vec2(12.9898,78.233)))*43758.5453123);}
@@ -103,7 +103,7 @@ float cnoise(vec3 P){
 }
 `;
 
-// ─── Geometry builder ────────────────────────────────────────────────────────
+// --- Geometry builder --------------------------------------------------------
 
 function createStackedPlanesGeometry(
   n: number,
@@ -168,7 +168,7 @@ const MergedPlanes = forwardRef<THREE.Mesh, MergedPlanesProps>(({ material, widt
     [count, width, height]
   );
   useFrame((_, delta) => {
-    mesh.current.material.uniforms.time.value += 0.1 * delta;
+    (mesh.current.material as THREE.ShaderMaterial).uniforms.time.value += 0.1 * delta;
   });
   return <mesh ref={mesh} geometry={geometry} material={material} />;
 });
@@ -185,7 +185,7 @@ const DirLight = ({ position, color }: { position: [number, number, number]; col
   return <directionalLight ref={dir} color={color} intensity={1} position={position} />;
 };
 
-// ─── Main exported component ─────────────────────────────────────────────────
+// --- Main exported component -------------------------------------------------
 
 interface BeamsProps {
   beamWidth?: number;

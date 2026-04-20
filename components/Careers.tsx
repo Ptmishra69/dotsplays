@@ -38,7 +38,7 @@ export default function Careers() {
       id="careers"
       className="relative w-full min-h-[100dvh] sm:h-full bg-black overflow-hidden flex flex-col items-center justify-center py-12 sm:py-20"
     >
-      {/* ── LineWaves WebGL background ── */}
+      {/* -- LineWaves WebGL background -- */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-25 sm:opacity-40">
         <LineWaves
           speed={0.15}
@@ -57,10 +57,10 @@ export default function Careers() {
         />
       </div>
 
-      {/* ── Top / bottom vignette ── */}
+      {/* -- Top / bottom vignette -- */}
       <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-black via-transparent to-black" />
 
-      {/* ── Content ── */}
+      {/* -- Content -- */}
       <div className="relative z-[10] w-full max-w-6xl px-6 sm:px-12 flex flex-col items-center gap-6 sm:gap-10 sm:translate-y-[35px]">
 
         {/* Heading */}

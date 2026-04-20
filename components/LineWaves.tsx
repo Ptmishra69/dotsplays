@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-// @ts-expect-error — ogl has no bundled types
 import { Renderer, Program, Mesh, Triangle } from "ogl";
 
-/* ── helpers ────────────────────────────────────────── */
+/* -- helpers ------------------------------------------ */
 
 function hexToVec3(hex: string): [number, number, number] {
   const h = hex.replace("#", "");
@@ -15,7 +14,7 @@ function hexToVec3(hex: string): [number, number, number] {
   ];
 }
 
-/* ── shaders ────────────────────────────────────────── */
+/* -- shaders ------------------------------------------ */
 
 const vertexShader = `
 attribute vec2 uv;
@@ -136,7 +135,7 @@ void main() {
 }
 `;
 
-/* ── React component ───────────────────────────────── */
+/* -- React component --------------------------------- */
 
 interface LineWavesProps {
   speed?: number;

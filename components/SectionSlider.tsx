@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useCallback, useRef, useEff
 import Navbar from "./Navbar";
 import MobileFooter from "./MobileFooter";
 
-// ── Section navigation context ──
+// -- Section navigation context --
 // Shared between SectionSlider, Navbar, and Continue button
 interface SectionContextType {
   activeSection: number;
@@ -26,7 +26,7 @@ const SectionContext = createContext<SectionContextType>({
 
 export const useSectionNav = () => useContext(SectionContext);
 
-// ── Section name mapping for Navbar ──
+// -- Section name mapping for Navbar --
 const sectionMap: Record<string, number> = {
   Home: 0,
   Game: 1,
@@ -36,7 +36,7 @@ const sectionMap: Record<string, number> = {
 };
 export const getSectionIndex = (name: string) => sectionMap[name] ?? 0;
 
-// ── Continue Button (desktop only) ──
+// -- Continue Button (desktop only) --
 function ContinueButton() {
   const { activeSection, totalSections, goNext } = useSectionNav();
 
@@ -68,7 +68,7 @@ function ContinueButton() {
   );
 }
 
-// ── Go Back Button (desktop only) ──
+// -- Go Back Button (desktop only) --
 function GoBackButton() {
   const { activeSection, goToSection } = useSectionNav();
 
@@ -100,7 +100,7 @@ function GoBackButton() {
   );
 }
 
-// ── Main Slider Wrapper ──
+// -- Main Slider Wrapper --
 interface SectionSliderProps {
   children: React.ReactNode[];
 }
@@ -131,7 +131,7 @@ export default function SectionSlider({ children }: SectionSliderProps) {
   const scrollAccRef = useRef(0);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // ── Desktop: intercept wheel scroll to navigate sections ──
+  // -- Desktop: intercept wheel scroll to navigate sections --
   useEffect(() => {
     // Only on desktop (640px+)
     if (typeof window === "undefined") return;
@@ -186,10 +186,10 @@ export default function SectionSlider({ children }: SectionSliderProps) {
     <SectionContext.Provider
       value={{ activeSection, totalSections, goToSection, goNext, isTrailerOpen, setIsTrailerOpen }}
     >
-      {/* ── Global Navbar (fixed, overlays everything) ── */}
+      {/* -- Global Navbar (fixed, overlays everything) -- */}
       <Navbar />
 
-      {/* ── DESKTOP: Horizontal slider, no scroll ── */}
+      {/* -- DESKTOP: Horizontal slider, no scroll -- */}
       <div className="hidden sm:block fixed inset-0 overflow-hidden bg-black">
         <div
           className="flex h-screen transition-transform duration-700 ease-[cubic-bezier(0.25,0.8,0.1,1)]"
@@ -212,7 +212,7 @@ export default function SectionSlider({ children }: SectionSliderProps) {
         <GoBackButton />
       </div>
 
-      {/* ── MOBILE: Normal vertical flow, unchanged ── */}
+      {/* -- MOBILE: Normal vertical flow, unchanged -- */}
       <div className="sm:hidden">
         {children}
         <MobileFooter />

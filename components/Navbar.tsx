@@ -189,7 +189,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── DESKTOP LOGO (Centered in gap between Go Back and Navbar) ── */}
+      {/* -- DESKTOP LOGO (Centered in gap between Go Back and Navbar) -- strength */}
       <a 
         onClick={() => goToSection(0)}
         className="hidden sm:block fixed top-[4%] left-[calc(24vw-52px)] -translate-x-1/2 sm:-translate-y-[20px] z-[85] cursor-pointer transition-all duration-500 hover:scale-110 active:scale-95 group"
@@ -201,7 +201,7 @@ export default function Navbar() {
         />
       </a>
 
-      {/* ── DESKTOP CONNECT (Red Radial Blossom Menu) ── */}
+      {/* -- DESKTOP CONNECT (Red Radial Blossom Menu) -- strength */}
       <div className="hidden sm:block fixed top-[4%] right-[calc(20vw+13px)] translate-x-1/2 sm:translate-y-[4px] z-[85] group flex flex-col items-center">
         {/* Hover Bridge: Expands the hit area so the menu doesn't close when moving to icons */}
         <div className="absolute inset-x-[-120px] top-[-40px] bottom-[-160px] pointer-events-none group-hover:pointer-events-auto z-0" />
@@ -270,7 +270,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── DESKTOP NAV ── */}
+      {/* -- DESKTOP NAV -- */}
       <nav className="nav hidden sm:block fixed top-[4%] left-1/2 -translate-x-1/2 z-[85] font-heading bg-black/50 border border-white/15 shadow-[0_15px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-2xl">
         <ul ref={navRef} id="navList" onMouseLeave={handleMouseLeave}>
           <div className="pill" id="pill" ref={pillRef}></div>
@@ -287,7 +287,7 @@ export default function Navbar() {
         </ul>
       </nav>
 
-      {/* ── MOBILE LOGO (Top Left) ── */}
+      {/* -- MOBILE LOGO (Top Left) -- strength */}
       <div className={`sm:hidden fixed left-[6vw] z-[100] transition-all duration-500 ${isScrolled ? 'top-4 scale-90' : 'top-6'}`}>
         <a onClick={() => { goToSection(0); setActiveIndex(0); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="cursor-pointer">
           <img 
@@ -298,7 +298,7 @@ export default function Navbar() {
         </a>
       </div>
 
-      {/* ── MOBILE HEADER ACTIONS (Top Right) ── */}
+      {/* -- MOBILE HEADER ACTIONS (Top Right) -- strength */}
       <div className={`sm:hidden fixed right-[6vw] z-[100] flex items-center gap-3 transition-all duration-500 ${isScrolled ? 'top-4' : 'top-6'}`}>
         <button
           onClick={() => setIsTrailerOpen(true)}
@@ -316,7 +316,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* ── MOBILE MENU OVERLAY ── */}
+      {/* -- MOBILE MENU OVERLAY -- strength */}
       {isMobileOpen && (
         <div className="sm:hidden fixed inset-0 z-[90] bg-black/60 backdrop-blur-2xl flex flex-col justify-center items-center text-center font-heading tracking-widest text-sm text-white/70 uppercase">
           <ul className="flex flex-col gap-8 mb-12">
@@ -341,7 +341,7 @@ export default function Navbar() {
 
         </div>
       )}
-      {/* ── TRAILER VIDEO MODAL ── */}
+      {/* -- TRAILER VIDEO MODAL -- strength */}
       {isTrailerOpen && (
         <div
           className="fixed inset-0 bg-black/90 backdrop-blur-sm flex justify-center items-center z-[150]"
